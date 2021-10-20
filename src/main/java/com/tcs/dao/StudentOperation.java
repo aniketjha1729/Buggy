@@ -24,19 +24,13 @@ import com.tcs.utils.DBUtils;
 @Repository
 public class StudentOperation implements StudentDAOInterFace {
 	Connection connection = DBUtils.getConnection();
-	
-	
 	@Override
 	public boolean addStudent(Student student) throws StudentNotRegisteredException {
 		// TODO Auto-generated method stub
-		
 		try {
 			System.out.println(student.toString());	
 			System.out.println(student.getStudentId()+""+student.getStudentDept()+""+student.getStudentName());
-			// open db connection
-			
 			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT);
-			
 			preparedStatement.setLong(1, student.getStudentId());
 			preparedStatement.setString(2, student.getStudentName());
 			preparedStatement.setString(3, student.getStudentDept());
@@ -44,13 +38,8 @@ public class StudentOperation implements StudentDAOInterFace {
 			preparedStatement.setString(5, student.getStudentMobile());
 			preparedStatement.setString(6, student.getStudentMobile());
 			preparedStatement.setString(7, student.getStudentPasword());
-			
-			
 			int rowAffected=preparedStatement.executeUpdate();
 			System.out.println(rowAffected);
-			
-			
-
 		} catch (Exception ex) {
 			throw new StudentNotRegisteredException(student.getStudentName());
 		} finally {
@@ -76,7 +65,32 @@ public class StudentOperation implements StudentDAOInterFace {
 					rs.getString(5),rs.getString(6),rs.getString(7)));
 		}
 		return students;
-		
+	}
+
+	@Override
+	public Student getStudentById(int id) throws SQLException {
+		// TODO Auto-generated method stub
+		String s = SQLQueriesConstants.VIEW_SELECTED_STUDENT+ id;
+		PreparedStatement stmt = connection.prepareStatement(s);
+		ResultSet rs= stmt.executeQuery();
+		if (rs.next())
+			return new Student(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),
+					rs.getString(5),rs.getString(6),rs.getString(7));
+		return null;
+	}
+
+	@Override
+	public Student deleteStudent(int id) throws SQLException {
+		// TODO Auto-generated method stub
+		String s = SQLQueriesConstants.VIEW_SELECTED_STUDENT+ id;
+		PreparedStatement stmt = connection.prepareStatement(s);
+		ResultSet rs= stmt.executeQuery();
+		stmt = connection.prepareStatement(SQLQueriesConstants.DELETE_SELECTED_ID_STUDENT_DATA);
+		stmt.setInt(1, id);
+		stmt.execute();
+		if (rs.next())
+			return new Student();
+		return null;
 	}
 
 }

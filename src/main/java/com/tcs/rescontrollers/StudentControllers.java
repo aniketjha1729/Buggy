@@ -14,8 +14,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,13 +40,7 @@ public class StudentControllers {
 	@Autowired
 	private StudentInterFace students;
 	
-	
-	@GetMapping("/customers")
-	public int getCustomers() {
-	return 0;
-	}
-	
-	@RequestMapping(method = RequestMethod.POST,value = "/users",consumes = {
+	@RequestMapping(method = RequestMethod.POST,value = "/students",consumes = {
 	        "application/JSON"})
 	public Response register(@RequestBody  Student student){
 		try{
@@ -55,8 +52,33 @@ public class StudentControllers {
 		return Response.status(201).entity("Registration Successful for "+student.getStudentId()).build(); 
 	}
 	
-	@RequestMapping(method=RequestMethod.GET,value="/users")
+	@RequestMapping(method=RequestMethod.GET,value="/students")
 	public List getStudents() throws SQLException {
 		return students.getAllStudents();
 	}
+	
+	@RequestMapping(value="/student/{id}",method=RequestMethod.GET)
+	public ResponseEntity getCustomer(@PathVariable("id") int id) throws SQLException {
+
+		Student studentId = students.getStudentById(id);
+		if (studentId == null) {
+			return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity(studentId, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/delete/student/{id}",method=RequestMethod.DELETE)
+	public ResponseEntity deleteStudent(@PathVariable int id) throws SQLException {
+		Student stud = students.deleteStudent(id);
+		if (null == stud) {
+			return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
+		}
+
+		return new ResponseEntity(id, HttpStatus.OK);
+
+	}
+	
+	 
+	
 }

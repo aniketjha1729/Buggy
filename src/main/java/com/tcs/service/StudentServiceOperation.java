@@ -48,4 +48,18 @@ public class StudentServiceOperation implements StudentInterFace {
 		return students.allStudentsList();
 	}
 
+	@Override
+	public Student getStudentById(int id) throws SQLException {
+		// TODO Auto-generated method stub
+
+		return students.getStudentById(id);
+		
+	}
+
+	@Override
+	public Student deleteStudent(int id) throws SQLException {
+		// TODO Auto-generated method stub
+		return students.deleteStudent(id);
+	}
+
 }

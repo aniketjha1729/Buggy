@@ -16,4 +16,6 @@ import com.tcs.exception.StudentNotRegisteredException;
 public interface StudentDAOInterFace {
 	public boolean addStudent(Student student) throws StudentNotRegisteredException;
 	public List allStudentsList() throws SQLException;
+	public Student getStudentById(int id) throws SQLException;
+	public Student deleteStudent(int id) throws SQLException;
 }
