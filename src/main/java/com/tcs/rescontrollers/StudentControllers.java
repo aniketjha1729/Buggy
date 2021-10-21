@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tcs.bean.Student;
+import com.tcs.exception.UserNotFoundException;
 import com.tcs.service.StudentInterFace;
 
 
@@ -76,9 +78,27 @@ public class StudentControllers {
 		}
 
 		return new ResponseEntity(id, HttpStatus.OK);
-
 	}
 	
-	 
+	@RequestMapping(value="/update/student/{id}",method=RequestMethod.PUT)
+	public ResponseEntity updateCustomer(@PathVariable int id, @RequestBody Student student) throws SQLException {
+		Student updateInfoStudent = students.updateStudent(id, student);
+		if (null == updateInfoStudent) {
+			return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity(student, HttpStatus.OK);
+	}
 	
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public ResponseEntity loginStudent(@QueryParam("studentEmail") String studentEmail,@QueryParam("studentPassword") String studentPassword) throws UserNotFoundException {
+		boolean loginStatus = students.loginStudent(studentEmail, studentPassword);
+//		System.out.println(studentEmail+" "+studentPassword);
+		if (loginStatus) {	
+			return new ResponseEntity("Login Successful", HttpStatus.OK);
+		}else {
+			return new ResponseEntity("User Name or Password is incorrect ", HttpStatus.NOT_FOUND);
+
+		}
+		
+	}
 }
