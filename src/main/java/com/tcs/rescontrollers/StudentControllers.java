@@ -49,6 +49,7 @@ public class StudentControllers {
 			System.out.println(student.toString());
 			students.addStudent(student);
 		}catch(Exception ex){
+			System.out.println(ex);
 			return Response.status(500).entity("Something went wrong! Please try again.").build(); 
 		}
 		return Response.status(201).entity("Registration Successful for "+student.getStudentId()).build(); 
@@ -99,6 +100,5 @@ public class StudentControllers {
 			return new ResponseEntity("User Name or Password is incorrect ", HttpStatus.NOT_FOUND);
 
 		}
-		
 	}
 }

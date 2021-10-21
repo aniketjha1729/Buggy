@@ -29,7 +29,7 @@ public class StudentOperation implements StudentDAOInterFace {
 	public boolean addStudent(Student student) throws StudentNotRegisteredException {
 		// TODO Auto-generated method stub
 		try {
-//			System.out.println(student.toString());	
+			System.out.println(student.toString());	
 //			System.out.println(student.getStudentId()+""+student.getStudentDept()+""+student.getStudentName());
 			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT);
 			preparedStatement.setLong(1, student.getStudentId());
@@ -39,6 +39,7 @@ public class StudentOperation implements StudentDAOInterFace {
 			preparedStatement.setString(5, student.getStudentMobile());
 			preparedStatement.setString(6, student.getStudentGender());
 			preparedStatement.setString(7, student.getStudentPasword());
+			System.out.println(preparedStatement);
 			int rowAffected=preparedStatement.executeUpdate();
 			System.out.println(rowAffected);
 		} catch (Exception ex) {
@@ -105,7 +106,7 @@ public class StudentOperation implements StudentDAOInterFace {
 		// TODO Auto-generated method stub
 		try {
 //			System.out.println(studentEmail+" "+studentPassword);
-			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.VERIFY_CREDENTIALS);
+			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.STUDENT_VERIFY_CREDENTIALS);
 			preparedStatement.setString(1,studentEmail);
 			System.out.println(preparedStatement);
 			ResultSet resultSet = preparedStatement.executeQuery();
