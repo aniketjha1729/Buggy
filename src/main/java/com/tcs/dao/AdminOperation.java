@@ -88,7 +88,6 @@ public class AdminOperation implements AdminDAOInterFace {
 		}catch(SQLException ex) {
 			System.out.println(ex);
 		}
-		
 	}
 	
 }

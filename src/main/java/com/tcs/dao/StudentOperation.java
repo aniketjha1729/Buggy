@@ -44,14 +44,7 @@ public class StudentOperation implements StudentDAOInterFace {
 			System.out.println(rowAffected);
 		} catch (Exception ex) {
 			throw new StudentNotRegisteredException(student.getStudentName());
-		} finally {
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage() + "SQL error");
-				e.printStackTrace();
-			}
-		}
+		} 
 		return true;
 		
 	}
@@ -108,9 +101,9 @@ public class StudentOperation implements StudentDAOInterFace {
 //			System.out.println(studentEmail+" "+studentPassword);
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.STUDENT_VERIFY_CREDENTIALS);
 			preparedStatement.setString(1,studentEmail);
-			System.out.println(preparedStatement);
+//			System.out.println(preparedStatement);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			System.out.println(resultSet);
+//			System.out.println(resultSet);
 			if(!resultSet.next()) {
 				System.out.println("hello");
 				throw new UserNotFoundException(studentEmail);}
