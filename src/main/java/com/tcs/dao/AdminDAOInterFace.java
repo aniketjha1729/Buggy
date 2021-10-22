@@ -19,5 +19,7 @@ public interface AdminDAOInterFace {
 	boolean adminLogin(String adminuserName, String adminPassword) throws UserNotFoundException;
 	List<Course> viewCourse();
 	void addCourse(Course course) throws CourseFoundException;
+	List allCourses() throws SQLException;
+	void assignCourse(String courseCode, String instructorId) throws UserNotFoundException;
 
 }

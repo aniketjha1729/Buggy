@@ -3,6 +3,7 @@
  */
 package com.tcs.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,25 @@ public class AdminServiceOperation implements AdminInterFace {
 		}
 	}
 
-	
+
+
+	@Override
+	public List getAllCourses() throws SQLException {
+		// TODO Auto-generated method stub
+		return admin.allCourses();
+	}
+
+
+
+	@Override
+	public void assignCourse(String courseCode, String instructorId) throws UserNotFoundException {
+		// TODO Auto-generated method stub
+		try {
+			admin.assignCourse(courseCode, instructorId);
+		}
+		catch(UserNotFoundException e) {
+			throw e;
+		}
+	}
 
 }

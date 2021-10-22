@@ -3,6 +3,7 @@
  */
 package com.tcs.rescontrollers;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.ws.rs.QueryParam;
@@ -54,9 +55,23 @@ public class AdminControllers {
 			return Response.status(201).entity("Course with courseCode: " + course.getCourseCode() + " added to catalog").build();
 		} catch (Exception e) {
 			return Response.status(409).entity(e.getMessage()).build();
-		}
-			
+		}	
 	}
 	
+	@RequestMapping(method=RequestMethod.GET,value="/admin/courses")
+	public List getCourses() throws SQLException {
+		return admin.getAllCourses();
+	}
+	
+	@RequestMapping(method=RequestMethod.PUT,value="/admin/assigncourses")
+	public Response assignCourses(@QueryParam("courseCode") String courseCode, @QueryParam("instructorId") String instructorId) {
+		try {
+			admin.assignCourse(courseCode, instructorId);
+			return Response.status(201).entity("courseCode: " + courseCode + " assigned to professor: " + instructorId).build();
+		} catch (Exception e) {
+			return Response.status(409).entity(e.getMessage()).build();
+			
+		}
+	}
 	
 }

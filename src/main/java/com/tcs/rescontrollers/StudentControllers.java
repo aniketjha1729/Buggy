@@ -98,7 +98,6 @@ public class StudentControllers {
 			return new ResponseEntity("Login Successful", HttpStatus.OK);
 		}else {
 			return new ResponseEntity("User Name or Password is incorrect ", HttpStatus.NOT_FOUND);
-
 		}
 	}
 }

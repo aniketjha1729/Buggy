@@ -14,9 +14,12 @@ public class SQLQueriesConstants {
 	public static final String VIEW_SELECTED_STUDENT = "select * from students where studentId= ";
 	public static final String DELETE_SELECTED_ID_STUDENT_DATA = "delete from students where studentId= ?";
 	public static final String STUDENT_VERIFY_CREDENTIALS="select studentPassword from students where studentEmail= ?";
+	public static final String STUDENT_UPDATE_RECORD="update students set studentRollNo=?, studentDept=? where studentId=?";
 	//Admin Queries:-
 	public static final String ADMIN_VERIFY_CREDENTIALS="select adminPassword from admin where adminuserName= ?";
 	public static final String ADMIN_VIEW_COURSES="select courseCode,courseName from courses";
 	public static final String ADMIN_ADD_COURSE = "insert into courses(courseId,courseCode,courseName) values (?, ?, ?)";
+	public static final String ADMIN_FETCH_COURSES="select * from courses";
+	public static final String ADMIN_ADMIN_ASSIGNCOURSES="update courses set instructorId = ? where courseCode = ?";
 	//Professor Queries:-
 }

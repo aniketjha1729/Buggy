@@ -29,15 +29,9 @@ public class StudentServiceOperation implements StudentInterFace {
 			throws StudentNotRegisteredException {
 		// TODO Auto-generated method stub
 		
-		try
-		{
-			//call the DAO class, and add the student record to the DB
-			
+		try{
 			students.addStudent(student);
-			
-		}
-		catch(StudentNotRegisteredException ex)
-		{
+		}catch(StudentNotRegisteredException ex){
 			throw ex;
 		}
 		
@@ -52,7 +46,6 @@ public class StudentServiceOperation implements StudentInterFace {
 	@Override
 	public Student getStudentById(int id) throws SQLException {
 		// TODO Auto-generated method stub
-
 		return students.getStudentById(id);
 		
 	}
