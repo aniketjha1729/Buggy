@@ -25,4 +25,5 @@ public class SQLQueriesConstants {
 	public static final String ADMIN_SELECTED_COURSE = "select * from courses where courseCode= ";
 	//Professor Queries:-
 	public static final String ADD_PROFESSOR="insert into professors (professorId,professorDept,professorName,professorEmail,professorMobile,professorPasword) values (?,?,?,?,?,?)";
+	public static final String PROFESSOR_VERIFY_CREDENTIALS="select professorPasword from professors where professorEmail= ?";
 }

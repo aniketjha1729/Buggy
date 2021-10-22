@@ -10,6 +10,7 @@ import com.tcs.bean.Professor;
 import com.tcs.dao.ProfessorDAOInterFace;
 import com.tcs.dao.StudentDAOInterFace;
 import com.tcs.exception.StudentNotRegisteredException;
+import com.tcs.exception.UserNotFoundException;
 
 /**
  * @author Aniket
@@ -30,5 +31,12 @@ public class ProfessorServiceOperation implements ProfessorInterFace {
 		}catch(StudentNotRegisteredException ex){
 			throw ex;
 		}	
+	}
+
+
+	@Override
+	public boolean loginProfessor(String professorEmail, String professorPasword) throws UserNotFoundException {
+		// TODO Auto-generated method stub
+		return professors.professorLogin(professorEmail, professorPasword);
 	}
 }
