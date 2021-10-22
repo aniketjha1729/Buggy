@@ -20,5 +20,6 @@ public interface AdminInterFace {
 	void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
 	List getAllCourses() throws SQLException;
 	void assignCourse(String courseCode, String instructorId) throws UserNotFoundException ;
+	Course deleteCourse(String courseCode) throws SQLException;;
 	
 }

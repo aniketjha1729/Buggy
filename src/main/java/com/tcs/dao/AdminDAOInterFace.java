@@ -21,5 +21,6 @@ public interface AdminDAOInterFace {
 	void addCourse(Course course) throws CourseFoundException;
 	List allCourses() throws SQLException;
 	void assignCourse(String courseCode, String instructorId) throws UserNotFoundException;
+	Course deleteCourse(String courseCode) throws SQLException;;
 
 }

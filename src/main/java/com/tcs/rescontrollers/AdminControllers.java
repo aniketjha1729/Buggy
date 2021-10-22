@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.ws.rs.core.Response;
 import org.springframework.http.ResponseEntity;
 import com.tcs.bean.Course;
+import com.tcs.bean.Student;
 import com.tcs.exception.UserNotFoundException;
 import com.tcs.service.AdminInterFace;
 import com.tcs.service.StudentInterFace;
@@ -72,6 +74,15 @@ public class AdminControllers {
 			return Response.status(409).entity(e.getMessage()).build();
 			
 		}
+	}
+	
+	@RequestMapping(value="/admin/delete/{courseCode}",method=RequestMethod.DELETE)
+	public ResponseEntity deleteStudent(@PathVariable String courseCode) throws SQLException {
+		Course course = admin.deleteCourse(courseCode);
+		if (null == course) {
+			return new ResponseEntity("No Course found for ID " + courseCode, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity(courseCode, HttpStatus.OK);
 	}
 	
 }

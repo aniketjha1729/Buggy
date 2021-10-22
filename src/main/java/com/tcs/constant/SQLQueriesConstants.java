@@ -21,5 +21,8 @@ public class SQLQueriesConstants {
 	public static final String ADMIN_ADD_COURSE = "insert into courses(courseId,courseCode,courseName) values (?, ?, ?)";
 	public static final String ADMIN_FETCH_COURSES="select * from courses";
 	public static final String ADMIN_ADMIN_ASSIGNCOURSES="update courses set instructorId = ? where courseCode = ?";
+	public static final String ADMIN_DELETE_COURSE = "delete from courses where courseCode= ?";
+	public static final String ADMIN_SELECTED_COURSE = "select * from courses where courseCode= ";
 	//Professor Queries:-
+	public static final String ADD_PROFESSOR="insert into professors (professorId,professorDept,professorName,professorEmail,professorMobile,professorPasword) values (?,?,?,?,?,?)";
 }

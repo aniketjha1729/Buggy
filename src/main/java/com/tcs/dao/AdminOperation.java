@@ -106,16 +106,31 @@ public class AdminOperation implements AdminDAOInterFace {
 	@Override
 	public void assignCourse(String courseCode, String instructorId) throws UserNotFoundException {
 		// TODO Auto-generated method stub
-		System.out.println(courseCode+" "+instructorId);
+		//System.out.println(courseCode+" "+instructorId);
 		try {
 			PreparedStatement stmt = connection.prepareStatement(SQLQueriesConstants.ADMIN_ADMIN_ASSIGNCOURSES);
 			stmt.setString(1,instructorId);
 			stmt.setString(2,courseCode);
-			System.out.println(stmt);
+			//System.out.println(stmt);
 			int row = stmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se);
 		}
+	}
+	@Override
+	public Course deleteCourse(String courseCode) throws SQLException {
+		// TODO Auto-generated method stub
+		String s = SQLQueriesConstants.ADMIN_SELECTED_COURSE+"'"+courseCode+"'";	
+		System.out.println(s);
+		PreparedStatement stmt = connection.prepareStatement(s);
+		ResultSet rs= stmt.executeQuery();
+		stmt = connection.prepareStatement(SQLQueriesConstants.ADMIN_DELETE_COURSE);
+		stmt.setString(1, courseCode);
+		System.out.println(stmt);
+		stmt.execute();
+		if (rs.next())
+			return new Course();
+		return null;
 	}
 	
 }
