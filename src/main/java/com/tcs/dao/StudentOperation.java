@@ -120,4 +120,36 @@ public class StudentOperation implements StudentDAOInterFace {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean registerForCourse(int studentId, int courseId) throws StudentNotRegisteredException {
+		// TODO Auto-generated method stub
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.STUDENT_ADD_COURSE);
+			preparedStatement.setInt(1, studentId);
+			preparedStatement.setInt(2, courseId);
+			System.out.println(preparedStatement);
+			int rowAffected=preparedStatement.executeUpdate();
+			System.out.println(rowAffected);
+		} catch (Exception ex) {
+			throw new StudentNotRegisteredException("hello");
+		} 
+		return true;
+	}
+
+	@Override
+	public List myCourses(int studentId) throws SQLException {
+		// TODO Auto-generated method stub
+		List<String> myCourses=new ArrayList<String>();
+		PreparedStatement stmt = connection.prepareStatement(SQLQueriesConstants.STUDENT_MY_COURSE);
+		stmt.setInt(1, studentId);
+		System.out.println(stmt);
+		ResultSet rs = stmt.executeQuery();
+		while(rs.next()) {
+			myCourses.add(new String(rs.getString(1)));
+		}
+		return myCourses;
+	}
+
+	
 }

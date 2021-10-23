@@ -84,4 +84,12 @@ public class AdminServiceOperation implements AdminInterFace {
 		return admin.deleteCourse(courseCode);
 	}
 
+
+
+	@Override
+	public List getAllProfessors() throws SQLException {
+		// TODO Auto-generated method stub
+		return admin.Professors();
+	}
+
 }

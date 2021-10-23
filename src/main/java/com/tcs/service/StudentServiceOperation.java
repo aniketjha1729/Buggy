@@ -67,5 +67,21 @@ public class StudentServiceOperation implements StudentInterFace {
 		// TODO Auto-generated method stub
 		return students.studentLogin(studentEmail, studentPassword);
 	}
+
+	@Override
+	public void registerForCourse(int studentId, int courseId) throws StudentNotRegisteredException {
+		// TODO Auto-generated method stub
+		try{
+			students.registerForCourse(studentId,courseId);
+		}catch(StudentNotRegisteredException ex){
+			throw ex;
+		}
+	}
+
+	@Override
+	public List getMyCourses(int studentId) throws SQLException {
+		// TODO Auto-generated method stub
+		return students.myCourses(studentId);
+	}
 	
 }

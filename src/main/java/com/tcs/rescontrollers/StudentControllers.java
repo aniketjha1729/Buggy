@@ -62,7 +62,6 @@ public class StudentControllers {
 	
 	@RequestMapping(value="/student/{id}",method=RequestMethod.GET)
 	public ResponseEntity getCustomer(@PathVariable("id") int id) throws SQLException {
-
 		Student studentId = students.getStudentById(id);
 		if (studentId == null) {
 			return new ResponseEntity("No Customer found for ID " + id, HttpStatus.NOT_FOUND);
@@ -93,11 +92,26 @@ public class StudentControllers {
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public ResponseEntity loginStudent(@QueryParam("studentEmail") String studentEmail,@QueryParam("studentPassword") String studentPassword) throws UserNotFoundException {
 		boolean loginStatus = students.loginStudent(studentEmail, studentPassword);
-//		System.out.println(studentEmail+" "+studentPassword);
 		if (loginStatus) {	
 			return new ResponseEntity("Login Successful", HttpStatus.OK);
 		}else {
 			return new ResponseEntity("User Name or Password is incorrect ", HttpStatus.NOT_FOUND);
 		}
+	}
+	
+	@RequestMapping(value="/student/addCourse",method=RequestMethod.POST)
+	public Response registerForCourse(@QueryParam("studentId") int studentId,@QueryParam("courseId") int courseId) {
+		try{
+			students.registerForCourse(studentId,courseId);
+		}catch(Exception ex){
+			System.out.println(ex);
+			return Response.status(500).entity("Something went wrong! Please try again.").build(); 
+		}
+		return Response.status(201).entity("Registration Successful for "+studentId).build(); 
+	}
+	
+	@RequestMapping(value="/student/mycourse",method=RequestMethod.GET)
+	public List getMyCourses(@QueryParam("studentId") int studentId) throws SQLException {
+		return students.getMyCourses(studentId);
 	}
 }

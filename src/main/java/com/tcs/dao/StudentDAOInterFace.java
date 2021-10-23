@@ -21,4 +21,6 @@ public interface StudentDAOInterFace {
 	public Student deleteStudent(int id) throws SQLException;
 	public Student update(int id, Student student) throws SQLException;
 	public boolean studentLogin(String studentEmail, String studentPassword) throws UserNotFoundException;
+	public boolean registerForCourse(int studentId, int courseId) throws StudentNotRegisteredException;
+	public List myCourses(int studentId) throws SQLException;
 }

@@ -65,6 +65,12 @@ public class AdminControllers {
 		return admin.getAllCourses();
 	}
 	
+	
+	@RequestMapping(method=RequestMethod.GET,value="/admin/professors")
+	public List getProfessors() throws SQLException {
+		return admin.getAllProfessors();
+	}
+	
 	@RequestMapping(method=RequestMethod.PUT,value="/admin/assigncourses")
 	public Response assignCourses(@QueryParam("courseCode") String courseCode, @QueryParam("instructorId") String instructorId) {
 		try {
@@ -84,5 +90,4 @@ public class AdminControllers {
 		}
 		return new ResponseEntity(courseCode, HttpStatus.OK);
 	}
-	
 }

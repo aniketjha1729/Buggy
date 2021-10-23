@@ -21,5 +21,6 @@ public interface StudentInterFace {
 	public Student deleteStudent(int id) throws SQLException;
 	public Student updateStudent(int id, Student student) throws SQLException;
 	public boolean loginStudent(String studentEmail, String studentPassword) throws UserNotFoundException;
-	
+	public void registerForCourse(int studentId, int courseId) throws StudentNotRegisteredException;
+	public List getMyCourses(int studentId) throws SQLException;
 }
