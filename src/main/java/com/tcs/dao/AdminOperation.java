@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 import com.tcs.bean.Course;
@@ -25,6 +26,11 @@ import com.tcs.utils.DBUtils;
  */
 @Repository
 public class AdminOperation implements AdminDAOInterFace {
+	//cofig apache log4J
+	private static Logger logger=Logger.getLogger(AdminOperation.class);
+	
+	
+	
 	Connection connection = DBUtils.getConnection();
 	@Override
 	public boolean adminLogin(String adminuserName, String adminPassword) throws UserNotFoundException {
@@ -32,11 +38,12 @@ public class AdminOperation implements AdminDAOInterFace {
 		try {
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.ADMIN_VERIFY_CREDENTIALS);
 			preparedStatement.setString(1,adminuserName);
-			System.out.println(preparedStatement);
+			logger.debug(preparedStatement);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			System.out.println(resultSet);
+			logger.debug(resultSet);
 			if(!resultSet.next()) {
 				//System.out.println("hello");
+				logger.info("inside resultSet");
 				throw new UserNotFoundException(adminuserName);}
 			else if(adminPassword.equals(resultSet.getString("adminPassword")))
 			{
@@ -47,7 +54,7 @@ public class AdminOperation implements AdminDAOInterFace {
 				return false;
 			}
 		}catch(SQLException ex) {
-			System.out.println(ex);
+			logger.error(ex.getMessage());
 		}
 		return false;
 		
