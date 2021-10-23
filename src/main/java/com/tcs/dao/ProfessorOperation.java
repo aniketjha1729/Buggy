@@ -23,6 +23,7 @@ import com.tcs.utils.DBUtils;
 @Repository
 public class ProfessorOperation implements ProfessorDAOInterFace {
 	Connection connection = DBUtils.getConnection();
+
 	@Override
 	public boolean addProfessor(Professor professor) throws StudentNotRegisteredException {
 		// TODO Auto-generated method stub
@@ -34,10 +35,10 @@ public class ProfessorOperation implements ProfessorDAOInterFace {
 			preparedStatement.setString(4, professor.getProfessorEmail());
 			preparedStatement.setString(5, professor.getProfessorMobile());
 			preparedStatement.setString(6, professor.getProfessorPasword());
-			int rowAffected=preparedStatement.executeUpdate();
+			int rowAffected = preparedStatement.executeUpdate();
 		} catch (Exception ex) {
 			throw new StudentNotRegisteredException(professor.getProfessorName());
-		} 
+		}
 		return true;
 	}
 
@@ -45,21 +46,38 @@ public class ProfessorOperation implements ProfessorDAOInterFace {
 	public boolean professorLogin(String professorEmail, String professorPasword) throws UserNotFoundException {
 		// TODO Auto-generated method stub
 		try {
-			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.PROFESSOR_VERIFY_CREDENTIALS);
-			preparedStatement.setString(1,professorEmail);
+			PreparedStatement preparedStatement = connection
+					.prepareStatement(SQLQueriesConstants.PROFESSOR_VERIFY_CREDENTIALS);
+			preparedStatement.setString(1, professorEmail);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			if(!resultSet.next()) {
+			if (!resultSet.next()) {
 				System.out.println("hello");
 				throw new UserNotFoundException(professorEmail);
-			}else if(professorPasword.equals(resultSet.getString("professorPasword"))){
+			} else if (professorPasword.equals(resultSet.getString("professorPasword"))) {
 				return true;
-			}else{
+			} else {
 				return false;
 			}
-		}catch(SQLException ex) {
+		} catch (SQLException ex) {
 			System.out.println(ex);
 		}
 		return false;
+	}
+
+	@Override
+	public String addGrade(int studentId, int courseId, String grade) throws UserNotFoundException {
+		// TODO Auto-generated method stub
+		try {
+			PreparedStatement stmt = connection.prepareStatement(SQLQueriesConstants.PROFESSOR_ADD_GRADE);
+			stmt.setString(1, grade);
+			stmt.setInt(2, studentId);
+			stmt.setInt(3, courseId);
+			int row = stmt.executeUpdate();
+			return "Grade successfully added";
+		} catch (SQLException se) {
+			System.out.println(se);
+		}
+		return "Something Went Wrong!!";
 	}
 
 }

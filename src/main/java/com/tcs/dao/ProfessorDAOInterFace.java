@@ -15,17 +15,20 @@ import com.tcs.exception.UserNotFoundException;
 public interface ProfessorDAOInterFace {
 	/**
 	 * Professor registring using SQL commands
+	 * 
 	 * @param professor
-	 * @throws ProfessorNotRegisteredException 
+	 * @throws ProfessorNotRegisteredException
 	 */
 	public boolean addProfessor(Professor professor) throws StudentNotRegisteredException;
-	
-	
+
 	/**
 	 * Professor login using SQL commands
+	 * 
 	 * @param professorEmail
 	 * @param professorPasword
-	 * @throws UserNotFoundException 
+	 * @throws UserNotFoundException
 	 */
 	public boolean professorLogin(String professorEmail, String professorPasword) throws UserNotFoundException;
+
+    public String addGrade(int studentId, int courseId, String grade) throws UserNotFoundException;
 }

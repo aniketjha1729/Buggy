@@ -12,32 +12,18 @@ public class Course {
 	private String courseCode;
 	private String courseName;
 	private String instructorId;
-	private String enrolledStudentsID;
 	private int seats = 10;
 	public Course() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Course(int courseId,String courseCode, String courseName, String instructorId, int seats, String enrolledStudentsID ) {
+	public Course(int courseId,String courseCode, String courseName, String instructorId, int seats ) {
 		super();
 		this.courseId=courseId;
 		this.courseCode = courseCode;
 		this.courseName = courseName;
 		this.instructorId = instructorId;
 		this.seats = seats;
-		this.enrolledStudentsID=enrolledStudentsID;
-	}
-	/**
-	 * @return the enrolledStudentsID
-	 */
-	public String getEnrolledStudentsID() {
-		return enrolledStudentsID;
-	}
-	/**
-	 * @param enrolledStudentsID the enrolledStudentsID to set
-	 */
-	public void setEnrolledStudentsID(String enrolledStudentsID) {
-		this.enrolledStudentsID = enrolledStudentsID;
 	}
 	/**
 	 * @return the courseCode

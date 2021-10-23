@@ -7,7 +7,7 @@ package com.tcs.bean;
  * @author Aniket
  *
  */
-public class Student{
+public class Student {
 	private int studentId;
 	private String studentDept;
 	private String studentName;
@@ -15,14 +15,23 @@ public class Student{
 	private String studentMobile;
 	private String studentGender;
 	private String studentPasword;
-	
+	private String approvedStatus;
+
+	public String getApprovedStatus() {
+		return approvedStatus;
+	}
+
+	public void setApprovedStatus(String approvedStatus) {
+		this.approvedStatus = approvedStatus;
+	}
+
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public Student(int studentId, String studentDept, String studentName, String studentEmail, String studentMobile,
-			String studentGender, String studentPasword) {
+			String studentGender, String studentPasword,String approvedStatus) {
 		super();
 		this.studentId = studentId;
 		this.studentDept = studentDept;
@@ -31,6 +40,7 @@ public class Student{
 		this.studentMobile = studentMobile;
 		this.studentGender = studentGender;
 		this.studentPasword = studentPasword;
+		this.approvedStatus=approvedStatus;
 	}
 
 	/**

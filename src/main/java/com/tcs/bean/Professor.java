@@ -14,12 +14,19 @@ public class Professor {
 	private String professorEmail;
 	private String professorMobile;
 	private String professorPasword;
+	private String approvedStatus;
+	public String getApprovedStatus() {
+		return approvedStatus;
+	}
+	public void setApprovedStatus(String approvedStatus) {
+		this.approvedStatus = approvedStatus;
+	}
 	public Professor() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Professor(int professorId, String professorDept, String professorName, String professorEmail,
-			String professorMobile, String professorPasword) {
+			String professorMobile, String professorPasword, String approvedStatus) {
 		super();
 		this.professorId = professorId;
 		this.professorDept = professorDept;
@@ -27,6 +34,7 @@ public class Professor {
 		this.professorEmail = professorEmail;
 		this.professorMobile = professorMobile;
 		this.professorPasword = professorPasword;
+		this.approvedStatus=approvedStatus;
 	}
 	/**
 	 * @return the professorId

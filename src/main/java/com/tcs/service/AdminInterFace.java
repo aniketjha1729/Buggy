@@ -17,56 +17,68 @@ import com.tcs.exception.UserNotFoundException;
 public interface AdminInterFace {
 	/**
 	 * Admin login using SQL commands
+	 * 
 	 * @param adminuserName
 	 * @param adminPassword
-	 * @throws UserNotFoundException 
+	 * @throws UserNotFoundException
 	 */
 	boolean loginAdmin(String adminuserName, String adminPassword) throws UserNotFoundException;
-	
-	
+
 	/**
 	 * Admin viewing all Courses using SQL commands
-	 * @throws NoCourseFoundException 
+	 * 
+	 * @throws NoCourseFoundException
 	 */
 	List<Course> viewCourses();
-	
-	
+
 	/**
 	 * Admin adding new courses using SQL commands
+	 * 
 	 * @param course
-	 * @throws CourseFoundException 
+	 * @throws CourseFoundException
 	 */
 	void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
-	
-	
+
 	/**
 	 * Admin viewing all Courses using SQL commands
-	 * @throws NoCourseFoundException 
+	 * 
+	 * @throws NoCourseFoundException
 	 */
 	List getAllCourses() throws SQLException;
-	
-	
+
 	/**
 	 * Admin assigning courses using SQL commands
+	 * 
 	 * @param courseCode
 	 * @param instructorId
-	 * @throws UserNotFoundException 
+	 * @throws UserNotFoundException
 	 */
-	void assignCourse(String courseCode, String instructorId) throws UserNotFoundException ;
-	
-	
+	void assignCourse(String courseCode, String instructorId) throws UserNotFoundException;
+
 	/**
 	 * Admin delte course using SQL commands
+	 * 
 	 * @param courseCode
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	Course deleteCourse(String courseCode) throws SQLException;
-	
-	
+
 	/**
 	 * Admin listing all professor using SQL commands
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
 	List getAllProfessors() throws SQLException;
-	
+
+	/**
+	 * Admin approval for professor using SQL commands
+	 * 
+	 * @param professorId
+	 * @param approved
+	 * @throws SQLException
+	 */
+	void approveProfessor(int professorId, String approved) throws UserNotFoundException;
+
+    void approveStudent(int studentId, String approved) throws UserNotFoundException;
+
 }

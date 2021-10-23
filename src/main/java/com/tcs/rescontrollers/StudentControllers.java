@@ -26,10 +26,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tcs.bean.Grade;
 import com.tcs.bean.Student;
 import com.tcs.exception.StudentNotRegisteredException;
 import com.tcs.exception.UserNotFoundException;
 import com.tcs.service.StudentInterFace;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
@@ -39,48 +41,44 @@ import com.tcs.service.StudentInterFace;
 @RestController
 @CrossOrigin
 public class StudentControllers {
-	
+
 	@Autowired
 	private StudentInterFace students;
-	
-	
+
 	/**
 	 * Student registring using SQL commands
+	 * 
 	 * @param student
 	 */
-	@RequestMapping(method = RequestMethod.POST,value = "/students",consumes = {
-	        "application/JSON"})
-	public Response register(@RequestBody  Student student){
-		try{
+	@RequestMapping(method = RequestMethod.POST, value = "/students", consumes = { "application/JSON" })
+	public Response register(@RequestBody Student student) {
+		try {
 			System.out.println(student.toString());
 			students.addStudent(student);
-		}catch(Exception ex){
+		} catch (Exception ex) {
 			System.out.println(ex);
-			return Response.status(500).entity("Something went wrong! Please try again.").build(); 
+			return Response.status(500).entity("Something went wrong! Please try again.").build();
 		}
-		return Response.status(201).entity("Registration Successful for "+student.getStudentId()).build(); 
+		return Response.status(201).entity("Registration Successful for " + student.getStudentId()).build();
 	}
-	
-	
-	
-	
+
 	/**
 	 * Students listing all peers login using SQL commands
-	 * @throws SQLException 
+	 * 
+	 * @throws SQLException
 	 */
-	@RequestMapping(method=RequestMethod.GET,value="/students")
+	@RequestMapping(method = RequestMethod.GET, value = "/students")
 	public List getStudents() throws SQLException {
 		return students.getAllStudents();
 	}
-	
-	
-	
+
 	/**
 	 * Sudents can see their profile SQL commands
+	 * 
 	 * @param SQLException
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
-	@RequestMapping(value="/student/{id}",method=RequestMethod.GET)
+	@RequestMapping(value = "/student/{id}", method = RequestMethod.GET)
 	public ResponseEntity getCustomer(@PathVariable("id") int id) throws SQLException {
 		Student studentId = students.getStudentById(id);
 		if (studentId == null) {
@@ -89,16 +87,14 @@ public class StudentControllers {
 
 		return new ResponseEntity(studentId, HttpStatus.OK);
 	}
-	
-	
-	
-	
+
 	/**
-	 * Student can delete Profile  using SQL commands
+	 * Student can delete Profile using SQL commands
+	 * 
 	 * @param id
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
-	@RequestMapping(value="/delete/student/{id}",method=RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/student/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity deleteStudent(@PathVariable int id) throws SQLException {
 		Student stud = students.deleteStudent(id);
 		if (null == stud) {
@@ -107,17 +103,15 @@ public class StudentControllers {
 
 		return new ResponseEntity(id, HttpStatus.OK);
 	}
-	
-	
-	
-	
+
 	/**
 	 * Stduent updating using SQL commands
+	 * 
 	 * @param id
 	 * @param student
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
-	@RequestMapping(value="/update/student/{id}",method=RequestMethod.PUT)
+	@RequestMapping(value = "/update/student/{id}", method = RequestMethod.PUT)
 	public ResponseEntity updateCustomer(@PathVariable int id, @RequestBody Student student) throws SQLException {
 		Student updateInfoStudent = students.updateStudent(id, student);
 		if (null == updateInfoStudent) {
@@ -125,57 +119,69 @@ public class StudentControllers {
 		}
 		return new ResponseEntity(student, HttpStatus.OK);
 	}
-	
-	
-	
-	
+
 	/**
-	 * Student  login using SQL commands
+	 * Student login using SQL commands
+	 * 
 	 * @param studentEmail
 	 * @param studentPassword
-	 * @throws UserNotFoundException 
+	 * @throws UserNotFoundException
 	 */
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public ResponseEntity loginStudent(@QueryParam("studentEmail") String studentEmail,@QueryParam("studentPassword") String studentPassword) throws UserNotFoundException {
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity loginStudent(@QueryParam("studentEmail") String studentEmail,
+			@QueryParam("studentPassword") String studentPassword) throws UserNotFoundException {
 		boolean loginStatus = students.loginStudent(studentEmail, studentPassword);
-		if (loginStatus) {	
+		if (loginStatus) {
 			return new ResponseEntity("Login Successful", HttpStatus.OK);
-		}else {
+		} else {
 			return new ResponseEntity("User Name or Password is incorrect ", HttpStatus.NOT_FOUND);
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Student Registring for new Course using SQL commands
+	 * 
 	 * @param studentId
 	 * @param courseId
 	 */
-	@RequestMapping(value="/student/addCourse",method=RequestMethod.POST)
-	public Response registerForCourse(@QueryParam("studentId") int studentId,@QueryParam("courseId") int courseId) {
-		try{
-			students.registerForCourse(studentId,courseId);
-		}catch(Exception ex){
+	@RequestMapping(value = "/student/addCourse", method = RequestMethod.POST)
+	public Response registerForCourse(@QueryParam("studentId") int studentId, @QueryParam("courseId") int courseId) {
+		try {
+			students.registerForCourse(studentId, courseId);
+		} catch (Exception ex) {
 			System.out.println(ex);
-			return Response.status(500).entity("Something went wrong! Please try again.").build(); 
+			return Response.status(500).entity("Something went wrong! Please try again.").build();
 		}
-		return Response.status(201).entity("Registration Successful for "+studentId).build(); 
+		return Response.status(201).entity("Registration Successful for " + studentId).build();
 	}
-	
-	
-	
-	
+
 	/**
-	 * Students can view his/her registered courses  SQL commands
+	 * Students can view his/her registered courses SQL commands
+	 * 
 	 * @param studentId
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
-	@RequestMapping(value="/student/mycourse",method=RequestMethod.GET)
+	@RequestMapping(value = "/student/mycourse", method = RequestMethod.GET)
 	public List getMyCourses(@QueryParam("studentId") int studentId) throws SQLException {
 		return students.getMyCourses(studentId);
 	}
+
+
+	/**
+	 * Students can view his/her registered courses SQL commands
+	 * 
+	 * @param studentId
+	 * @throws SQLException
+	 */
+	@RequestMapping(value = "/myFee", method = RequestMethod.GET)
+	public double getMyFee(@QueryParam("studentId") int studentId) throws SQLException {
+		return students.getMyFee(studentId);
+	}
+
+	@RequestMapping(value="/myGradeCard/{studentId}", method=RequestMethod.GET)
+	public List<Grade> requestMethodName(@PathVariable int studentId) throws SQLException{
+		return students.myGradeCard(studentId);
+	}
+	
+
 }

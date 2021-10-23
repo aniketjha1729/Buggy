@@ -22,7 +22,7 @@ import com.tcs.helper.AdminHelper;
  */
 @Component
 public class AdminServiceOperation implements AdminInterFace {
-	
+
 	@Autowired
 	private AdminDAOInterFace admin;
 
@@ -31,8 +31,6 @@ public class AdminServiceOperation implements AdminInterFace {
 		// TODO Auto-generated method stub
 		return admin.adminLogin(adminuserName, adminPassword);
 	}
-
-	
 
 	@Override
 	public List<Course> viewCourses() {
@@ -43,19 +41,16 @@ public class AdminServiceOperation implements AdminInterFace {
 	@Override
 	public void addCourse(Course course, List<Course> courseList) throws CourseFoundException {
 		// TODO Auto-generated method stub
-		if(!AdminHelper.isValidNewCourse(course, courseList)) {
-			System.out.println(course+" already present in catalog!");
+		if (!AdminHelper.isValidNewCourse(course, courseList)) {
+			System.out.println(course + " already present in catalog!");
 			throw new CourseFoundException(course.getCourseCode());
 		}
 		try {
 			admin.addCourse(course);
-		}
-		catch(CourseFoundException e) {
+		} catch (CourseFoundException e) {
 			throw e;
 		}
 	}
-
-
 
 	@Override
 	public List getAllCourses() throws SQLException {
@@ -63,20 +58,15 @@ public class AdminServiceOperation implements AdminInterFace {
 		return admin.allCourses();
 	}
 
-
-
 	@Override
 	public void assignCourse(String courseCode, String instructorId) throws UserNotFoundException {
 		// TODO Auto-generated method stub
 		try {
 			admin.assignCourse(courseCode, instructorId);
-		}
-		catch(UserNotFoundException e) {
+		} catch (UserNotFoundException e) {
 			throw e;
 		}
 	}
-
-
 
 	@Override
 	public Course deleteCourse(String courseCode) throws SQLException {
@@ -84,12 +74,30 @@ public class AdminServiceOperation implements AdminInterFace {
 		return admin.deleteCourse(courseCode);
 	}
 
-
-
 	@Override
 	public List getAllProfessors() throws SQLException {
 		// TODO Auto-generated method stub
 		return admin.Professors();
 	}
 
+	@Override
+	public void approveProfessor(int professorId, String approved) throws UserNotFoundException {
+		// TODO Auto-generated method stub
+		try {
+			admin.approveProfessor(professorId, approved);
+		} catch (UserNotFoundException e) {
+			throw e;
+		}
+
+	}
+
+	@Override
+	public void approveStudent(int studentId, String approved) throws UserNotFoundException {
+		// TODO Auto-generated method stub
+		try {
+			admin.approveStudent(studentId, approved);
+		} catch (UserNotFoundException e) {
+			throw e;
+		}
+	}
 }
