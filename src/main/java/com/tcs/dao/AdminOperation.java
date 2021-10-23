@@ -41,7 +41,6 @@ public class AdminOperation implements AdminDAOInterFace {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			logger.debug(resultSet);
 			if(!resultSet.next()) {
-				//System.out.println("hello");
 				logger.info("inside resultSet");
 				throw new UserNotFoundException(adminuserName);}
 			else if(adminPassword.equals(resultSet.getString("adminPassword")))
@@ -66,7 +65,6 @@ public class AdminOperation implements AdminDAOInterFace {
 			
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.ADMIN_VIEW_COURSES);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			System.out.println(resultSet);
 			while(resultSet.next()) {
 				Course course = new Course();
 				course.setCourseCode(resultSet.getString(1));
@@ -83,15 +81,11 @@ public class AdminOperation implements AdminDAOInterFace {
 	public void addCourse(Course course) throws CourseFoundException {
 		// TODO Auto-generated method stub
 		try {
-//			System.out.println("hello here in dao");
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.ADMIN_ADD_COURSE);
 			preparedStatement.setInt(1, course.getCourseId());
 			preparedStatement.setString(2, course.getCourseCode());
 			preparedStatement.setString(3, course.getCourseName());
-			System.out.println(preparedStatement);
 			int resultSet = preparedStatement.executeUpdate();
-//			System.out.println(resultSet);
-			
 		}catch(SQLException ex) {
 			System.out.println(ex);
 		}
@@ -112,12 +106,10 @@ public class AdminOperation implements AdminDAOInterFace {
 	@Override
 	public void assignCourse(String courseCode, String instructorId) throws UserNotFoundException {
 		// TODO Auto-generated method stub
-		//System.out.println(courseCode+" "+instructorId);
 		try {
 			PreparedStatement stmt = connection.prepareStatement(SQLQueriesConstants.ADMIN_ADMIN_ASSIGNCOURSES);
 			stmt.setString(1,instructorId);
 			stmt.setString(2,courseCode);
-			//System.out.println(stmt);
 			int row = stmt.executeUpdate();
 		}catch(SQLException se) {
 			System.out.println(se);
@@ -127,12 +119,10 @@ public class AdminOperation implements AdminDAOInterFace {
 	public Course deleteCourse(String courseCode) throws SQLException {
 		// TODO Auto-generated method stub
 		String s = SQLQueriesConstants.ADMIN_SELECTED_COURSE+"'"+courseCode+"'";	
-		System.out.println(s);
 		PreparedStatement stmt = connection.prepareStatement(s);
 		ResultSet rs= stmt.executeQuery();
 		stmt = connection.prepareStatement(SQLQueriesConstants.ADMIN_DELETE_COURSE);
 		stmt.setString(1, courseCode);
-		System.out.println(stmt);
 		stmt.execute();
 		if (rs.next())
 			return new Course();

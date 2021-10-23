@@ -34,9 +34,7 @@ public class ProfessorOperation implements ProfessorDAOInterFace {
 			preparedStatement.setString(4, professor.getProfessorEmail());
 			preparedStatement.setString(5, professor.getProfessorMobile());
 			preparedStatement.setString(6, professor.getProfessorPasword());
-			//System.out.println(preparedStatement);
 			int rowAffected=preparedStatement.executeUpdate();
-			//System.out.println(rowAffected);
 		} catch (Exception ex) {
 			throw new StudentNotRegisteredException(professor.getProfessorName());
 		} 

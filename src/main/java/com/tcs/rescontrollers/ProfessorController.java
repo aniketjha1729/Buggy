@@ -32,6 +32,11 @@ public class ProfessorController {
 	@Autowired
 	private ProfessorInterFace professors;
 	
+	
+	/**
+	 * Professor registring using SQL commands
+	 * @param professor
+	 */
 	@RequestMapping(method = RequestMethod.POST,value = "/professor",consumes = {
     "application/JSON"})
 	public Response registerProfessor(@RequestBody  Professor professor){
@@ -45,6 +50,14 @@ public class ProfessorController {
 		return Response.status(201).entity("Registration Successful for "+professor.getProfessorId()).build(); 
 	}
 	
+	
+	
+	/**
+	 * Professor login using SQL commands
+	 * @param professorEmail
+	 * @param professorPasword
+	 * @throws UserNotFoundException 
+	 */
 	@RequestMapping(value="/professor/login",method=RequestMethod.POST)
 	public ResponseEntity loginProfessor(@QueryParam("professorEmail") String professorEmail,@QueryParam("professorPasword") String professorPasword) throws UserNotFoundException {
 		boolean loginStatus = professors.loginProfessor(professorEmail, professorPasword);

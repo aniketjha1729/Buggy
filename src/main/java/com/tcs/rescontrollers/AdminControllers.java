@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.http.ResponseEntity;
 import com.tcs.bean.Course;
 import com.tcs.bean.Student;
+import com.tcs.exception.CourseFoundException;
 import com.tcs.exception.UserNotFoundException;
 import com.tcs.service.AdminInterFace;
 import com.tcs.service.StudentInterFace;
@@ -38,6 +39,12 @@ public class AdminControllers {
 	@Autowired
 	private AdminInterFace admin;
 	
+	
+	/**
+	 * Admin login using SQL commands
+	 * @param adminuserName
+	 * @param adminPassword 
+	 */
 	@RequestMapping(value="/admin/login",method=RequestMethod.POST)
 	public ResponseEntity loginAdmin(@QueryParam("adminuserName") String adminuserName,@QueryParam("adminPassword") String adminPassword) throws UserNotFoundException {
 		boolean loginStatus = admin.loginAdmin(adminuserName, adminPassword);
@@ -49,6 +56,14 @@ public class AdminControllers {
 		}
 	}
 	
+	
+	
+	
+	
+	/**
+	 * Admin adding new courses using SQL commands
+	 * @param course
+	 */
 	@RequestMapping(value="/admin/addCourse",method=RequestMethod.POST)
 	public Response addCourese(@RequestBody Course course ) {
 		List<Course> courseList = admin.viewCourses();
@@ -60,17 +75,37 @@ public class AdminControllers {
 		}	
 	}
 	
+	
+	
+	/**
+	 * Admin viewing all Courses using SQL commands
+	 * @throws SQLException 
+	 */
 	@RequestMapping(method=RequestMethod.GET,value="/admin/courses")
 	public List getCourses() throws SQLException {
 		return admin.getAllCourses();
 	}
 	
 	
+	
+	
+	/**
+	 * Admin listing all professor using SQL commands
+	 * @throws SQLException 
+	 */
 	@RequestMapping(method=RequestMethod.GET,value="/admin/professors")
 	public List getProfessors() throws SQLException {
 		return admin.getAllProfessors();
 	}
 	
+	
+	
+	
+	/**
+	 * Admin assigning courses using SQL commands
+	 * @param courseCode
+	 * @param instructorId
+	 */
 	@RequestMapping(method=RequestMethod.PUT,value="/admin/assigncourses")
 	public Response assignCourses(@QueryParam("courseCode") String courseCode, @QueryParam("instructorId") String instructorId) {
 		try {
@@ -82,6 +117,14 @@ public class AdminControllers {
 		}
 	}
 	
+	
+	
+	
+	/**
+	 * Admin delte course using SQL commands
+	 * @param courseCode
+	 * @throws SQLException 
+	 */
 	@RequestMapping(value="/admin/delete/{courseCode}",method=RequestMethod.DELETE)
 	public ResponseEntity deleteStudent(@PathVariable String courseCode) throws SQLException {
 		Course course = admin.deleteCourse(courseCode);

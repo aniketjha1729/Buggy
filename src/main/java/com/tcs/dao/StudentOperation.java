@@ -30,7 +30,6 @@ public class StudentOperation implements StudentDAOInterFace {
 		// TODO Auto-generated method stub
 		try {
 			System.out.println(student.toString());	
-//			System.out.println(student.getStudentId()+""+student.getStudentDept()+""+student.getStudentName());
 			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT);
 			preparedStatement.setLong(1, student.getStudentId());
 			preparedStatement.setString(2, student.getStudentName());
@@ -98,12 +97,9 @@ public class StudentOperation implements StudentDAOInterFace {
 	public boolean studentLogin(String studentEmail, String studentPassword) throws UserNotFoundException {
 		// TODO Auto-generated method stub
 		try {
-//			System.out.println(studentEmail+" "+studentPassword);
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.STUDENT_VERIFY_CREDENTIALS);
 			preparedStatement.setString(1,studentEmail);
-//			System.out.println(preparedStatement);
 			ResultSet resultSet = preparedStatement.executeQuery();
-//			System.out.println(resultSet);
 			if(!resultSet.next()) {
 				System.out.println("hello");
 				throw new UserNotFoundException(studentEmail);}
@@ -143,7 +139,6 @@ public class StudentOperation implements StudentDAOInterFace {
 		List<String> myCourses=new ArrayList<String>();
 		PreparedStatement stmt = connection.prepareStatement(SQLQueriesConstants.STUDENT_MY_COURSE);
 		stmt.setInt(1, studentId);
-		System.out.println(stmt);
 		ResultSet rs = stmt.executeQuery();
 		while(rs.next()) {
 			myCourses.add(new String(rs.getString(1)));
