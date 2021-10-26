@@ -11,11 +11,12 @@ import com.aniket.utils.DBUtils;
 
 @Repository
 public class StudentDaoOperation implements StudentDaoInterface {
-    Connection connection = DBUtils.getConnection();
-    @Override
-    public boolean addStudent(Student student) throws StudentNotRegisteredException {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY);
+	Connection connection = DBUtils.getConnection();
+
+	@Override
+	public boolean addStudent(Student student) throws StudentNotRegisteredException {
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY);
 			preparedStatement.setString(1, student.getUserId());
 			preparedStatement.setString(2, student.getName());
 			preparedStatement.setString(3, student.getPassword());
@@ -35,9 +36,9 @@ public class StudentDaoOperation implements StudentDaoInterface {
 				preparedStatementStudent.setBoolean(4, false);
 				preparedStatementStudent.executeUpdate();
 			}
-        } catch (Exception ex) {
-            throw new StudentNotRegisteredException(student.getName());
-        }
-        return true;
-    }
+		} catch (Exception ex) {
+			throw new StudentNotRegisteredException(student.getName());
+		}
+		return true;
+	}
 }

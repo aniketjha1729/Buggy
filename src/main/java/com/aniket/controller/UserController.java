@@ -8,9 +8,9 @@ import com.aniket.services.StudentInterface;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @RestController
@@ -21,7 +21,7 @@ public class UserController {
     private StudentInterface studentInterface;
 
     @RequestMapping(value = "/studentRegister", method = RequestMethod.POST)
-    public Response register(@Valid Student student) {
+    public Response register(@RequestBody Student student) {
         try {
             studentInterface.register(student.getName(), student.getUserId(), student.getPassword(),
                     student.getGender(), student.getBatch(), student.getBranchName(), student.getAddress(),
